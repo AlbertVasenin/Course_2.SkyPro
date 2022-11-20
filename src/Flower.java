@@ -4,29 +4,13 @@ public class Flower {
   private String flowerColor;
   private String country;
   private double cost;
-  private int lifeSpan;
+  private final int lifeSpan;
 
   public Flower(String flowerColor, String country, double cost, int lifeSpan) {
-    if (flowerColor != null && !flowerColor.isEmpty() && !flowerColor.isBlank()) {
-      this.flowerColor = flowerColor;
-    } else {
-      this.flowerColor = "белый";
-    }
-    if (country != null && !country.isEmpty() && !country.isBlank()) {
-      this.country = country;
-    } else {
-      this.country = "Россия";
-    }
-    if (cost <= 0) {
-      this.cost = 1;
-    } else {
-      this.cost = cost;
-    }
-    if (lifeSpan <= 0) {
-      this.lifeSpan = 3;
-    } else {
-      this.lifeSpan = lifeSpan;
-    }
+    this.flowerColor = (flowerColor != null && !flowerColor.isEmpty() && !flowerColor.isBlank()) ? flowerColor : "белый";
+    this.country = (country != null && !country.isEmpty() && !country.isBlank()) ? country : "Россия";
+    this.cost = (cost <= 0) ? 1 : cost;
+    this.lifeSpan = (lifeSpan <= 0) ? 3 : lifeSpan;
   }
 
   public String getFlowerColor() {
@@ -34,11 +18,7 @@ public class Flower {
   }
 
   public void setFlowerColor(String flowerColor) {
-    if (flowerColor != null && flowerColor.isEmpty() && flowerColor.isBlank()) {
-      this.flowerColor = flowerColor;
-    } else {
-      this.flowerColor = "белый";
-    }
+    this.flowerColor = (flowerColor != null && !flowerColor.isEmpty() && !flowerColor.isBlank()) ? flowerColor : "белый";
   }
 
   public String getCountry() {
@@ -46,11 +26,7 @@ public class Flower {
   }
 
   public void setCountry(String country) {
-    if (country != null && !country.isEmpty() && !country.isBlank()) {
-      this.country = country;
-    } else {
-      this.country = "Россия";
-    }
+    this.country = (country != null && !country.isEmpty() && !country.isBlank()) ? country : "Россия";
   }
 
   public double getCost() {
@@ -58,11 +34,7 @@ public class Flower {
   }
 
   public void setCost(double cost) {
-    if (cost <= 0) {
-      this.cost = 1;
-    } else {
-      this.cost = cost;
-    }
+    this.cost = (cost <= 0) ? 1 : cost;
   }
 
   public int getLifeSpan() {

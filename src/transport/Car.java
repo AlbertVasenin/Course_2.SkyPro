@@ -1,7 +1,6 @@
 package transport;
 
 import java.time.LocalDate;
-import java.util.Locale;
 
 public class Car {
 
@@ -25,12 +24,12 @@ public class Car {
       if (number != null && !number.isEmpty() && !number.isBlank()) {
         this.number = number;
       } else {
-        this.number = "ХХХ234654";
+        this.number = "ААА000000";
       }
     }
 
     public Insurance() {
-      this(LocalDate.now().plusDays(365), 4000, "ААА564236");
+      this(LocalDate.now().plusDays(365), 4000, "ААА000000");
     }
 
     public LocalDate getPeriod() {
@@ -64,12 +63,8 @@ public class Car {
     private final String startKeyPush;
 
     public Key(String startKeyDistance, String startKeyPush) {
-      this.startKeyDistance = startKeyDistance;
-      this.startKeyPush = startKeyPush;
-    }
-
-    public Key() {
-      this("удаленный запуск двигателя", "бесключевой доступ");
+      this.startKeyDistance = (startKeyDistance != null && !startKeyDistance.isEmpty() && !startKeyDistance.isBlank()) ? startKeyDistance : "";
+      this.startKeyPush = (startKeyPush!= null && !startKeyPush.isEmpty() && !startKeyPush.isBlank()) ? startKeyPush : "";
     }
 
     public String getStartKeyDistance() {
@@ -99,60 +94,24 @@ public class Car {
       float engineVolume,
       String transmission, String bodyType, String registrationNumber, int numberOfSeats,
       boolean summerTires, Key key, Insurance insurance) {
-    if (brand != null && !brand.isEmpty() && !brand.isBlank()) {
-      this.brand = brand;
-    } else {
-      this.brand = "...default...";
-    }
-    if (model != null && !model.isEmpty() && !model.isBlank()) {
-      this.model = model;
-    } else {
-      this.model = "...default...";
-    }
-    if (engineVolume <= 0) {
-      this.engineVolume = 1.5f;
-    } else {
-      this.engineVolume = engineVolume;
-    }
-    if (color != null && !color.isEmpty() && !color.isBlank()) {
-      this.color = color;
-    } else {
-      this.color = "...белый...";
-    }
-    if (year <= 0) {
-      this.year = 2000;
-    } else {
-      this.year = year;
-    }
-    if (country != null && !country.isEmpty() && !country.isBlank()) {
-      this.country = country;
-    } else {
-      this.country = "...default...";
-    }
-    if (transmission != null && !transmission.isEmpty() && !transmission.isBlank()) {
-      this.transmission = transmission;
-    } else {
-      this.transmission = "МКПП";
-    }
-    if (bodyType != null && !bodyType.isEmpty() && !bodyType.isBlank()) {
-      this.bodyType = bodyType;
-    } else {
-      this.bodyType = "седан";
-    }
-    if (registrationNumber != null && !registrationNumber.isEmpty()
-        && !registrationNumber.isBlank()) {
-      this.registrationNumber = registrationNumber;
-    } else {
-      this.registrationNumber = "х000хх000";
-    }
-    if (numberOfSeats > 5) {
-      this.numberOfSeats = numberOfSeats;
-    } else {
-      this.numberOfSeats = 5;
-    }
+    this.brand = (brand != null && !brand.isEmpty() && !brand.isBlank()) ? brand : "...default...";
+    this.model = (model != null && !model.isEmpty() && !model.isBlank()) ? model : "...default...";
+    this.engineVolume = (engineVolume <= 0) ? 1.5f : engineVolume;
+    this.color = (color != null && !color.isEmpty() && !color.isBlank()) ? color : "...белый...";
+    this.year = (year <= 0) ? 2000 : year;
+    this.country =
+        (country != null && !country.isEmpty() && !country.isBlank()) ? country : "...default...";
+    this.transmission =
+        (transmission != null && !transmission.isEmpty() && !transmission.isBlank()) ? transmission
+            : "МКПП";
+    this.bodyType =
+        (bodyType != null && !bodyType.isEmpty() && !bodyType.isBlank()) ? bodyType : "седан";
+    this.registrationNumber = (registrationNumber != null && !registrationNumber.isEmpty()
+        && !registrationNumber.isBlank()) ? registrationNumber : "х000хх000";
+    this.numberOfSeats = Math.max(numberOfSeats, 5);
     this.summerTires = summerTires;
     if (key == null) {
-      this.key = new Key();
+      this.key = new Key(null, null);
     } else {
       this.key = key;
     }
@@ -166,7 +125,7 @@ public class Car {
   public Car(String brand, String model, int year, String country, String color,
       float engineVolume) {
     this(brand, model, year, country, color, engineVolume, "МКПП", "седан", "х000хх000", 5, true,
-        new Key(), new Insurance());
+        new Key(null, null), new Insurance());
   }
 
   public String getBrand() {
@@ -281,9 +240,11 @@ public class Car {
   public String toString() {
     return String.format(
         "%s %s, %d год выпуска, сборка %s, цвет %s, объем двигателя %.1f л. Трансмиссия %s, кузов %s, регистрационный номер %s, "
-            + "количество мест %d, %s резина, номер страховки %s, %s, цена %.2f рублей, запуск двигателя: %s, %s.",
+            + "количество мест %d, %s резина, номер страховки %s, %s, цена %.2f рублей, запуск двигателя: %s %s.",
         brand,
         model, year, country, color, engineVolume, transmission, bodyType, registrationNumber,
-        numberOfSeats, isSummerTires() ? "летняя" : "зимняя", getInsurance().number, getInsurance().period,getInsurance().cost, getKey().startKeyPush, getKey().startKeyDistance);
+        numberOfSeats, isSummerTires() ? "летняя" : "зимняя", getInsurance().number,
+        getInsurance().period, getInsurance().cost, getKey().getStartKeyPush(),
+        getKey().getStartKeyDistance());
   }
 }

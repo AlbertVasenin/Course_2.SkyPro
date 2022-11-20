@@ -66,22 +66,24 @@ public class Main {
         "=============================================================================");
     bmw.setKey(new Key("Удаленный запуск", "Бесключевой запуск"));
     audi.setKey(new Key("Удаленный запуск", "Бесключевой запуск"));
-    lada.setKey(new Key("", "Ключевой запуск"));
-    kia.setKey(new Key("", "Бесключевой запуск"));
-    hyundai.setKey(new Key("", "Ключевой запуск"));
+    lada.setKey(new Key(null, "Ключевой запуск"));
+    kia.setKey(new Key(null, "Бесключевой запуск"));
+    hyundai.setKey(new Key(null, "Ключевой запуск"));
     for (Car car : cars) {
       System.out.println(car);
     }
-    bmw.setInsurance(new Insurance(LocalDate.now(),6524,"ВВВ4587964"));
+    bmw.setInsurance(new Insurance(LocalDate.now(), 6524, "ВВВ4587964"));
     bmw.getInsurance().checkInsurancePeriod();
     bmw.getInsurance().checkInsuranceNumber();
+    System.out.println(bmw);
   }
 
   public static void getBouquet(Flower... flower) {
     double cost = 0;
     int minSpan = Integer.MAX_VALUE;
     for (Flower flowers : flower) {
-      cost += flowers.getCost();
+      double percent = flowers.getCost() * 10 / 100;
+      cost += flowers.getCost()+percent;
       if (flowers.getLifeSpan() < minSpan) {
         minSpan = flowers.getLifeSpan();
       }
